@@ -1,6 +1,8 @@
 ## What is it
 A program for converting one giant JSON file into many small JSON files, one per record of the original JSON.
 
+`small.json` is an extracted bit of the first few records from the full JSON file. You can get the full file from https://www.consumerfinance.gov/data-research/consumer-complaints/
+
 This works on my super specific data where it expects the data in an array under "data" and the column names under "meta" > "view" > "columns" > "name". Listen. You can change it to work for your stuff. I don't have a generalized case.
 
 The intent is that I'm going to ingest these files into Discovery next.

@@ -7,7 +7,7 @@ keys      = []
 row_count = 0
 files_per_directory = 5000
 output    = true
-last_file_number = 10000
+last_file_number = 20000
 
 data_as_string = File.read(file).encode('UTF-8', :invalid => :replace)
 data_as_hash = JSON.parse(data_as_string)
@@ -29,7 +29,6 @@ if output && !File.exist?(output_dir_name)
 end
 
 data_as_hash["data"].each do |listing|
-  row_count = row_count + 1
   output_hash = {}
   listing.each_with_index do |value, i|
     output_hash[keys[i]] = value
@@ -41,11 +40,12 @@ data_as_hash["data"].each do |listing|
     `mkdir #{sub_dir_name}`
   end
 
-  if output
+  if output && output_hash["text"]
+    row_count = row_count + 1
     File.open("#{sub_dir_name}/file#{row_count}.json", 'w') do |file|
       file.puts JSON.pretty_generate(output_hash)
     end
-  else
+  elsif !output
     puts JSON.pretty_generate(output_hash)
   end
   
